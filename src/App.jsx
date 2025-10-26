@@ -3,6 +3,8 @@ import MainLayout from "./components/MainLayout"
 import Home from "./pages/Home"
 import Products from "./pages/Products"
 import Contacts from "./pages/Contact"
+import SingleProducts from "./pages/SingleProducts"
+import User from "./pages/User"
 
 export default function App() {
 
@@ -19,6 +21,15 @@ export default function App() {
           path: "products",
           element: <Products />
         },
+        {
+          path: "users",
+          element: <User/>
+        },
+        {
+          path: "products/:id",
+          element: <SingleProducts />
+        }
+        ,
         {
           path: "contact",
           element: <Contacts />

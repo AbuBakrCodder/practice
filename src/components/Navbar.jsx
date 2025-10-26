@@ -28,7 +28,9 @@ export default function Navbar() {
                                     <li>
                                         <NavLink className="text-gray-500 transition hover:text-gray-500/75" to="/products">Products</NavLink>
                                     </li>
-
+                                    <li>
+                                        <NavLink className="text-gray-500 transition hover:text-gray-500/75" to="/users">Users</NavLink>
+                                    </li>
                                     <li>
                                         <NavLink className="text-gray-500 transition hover:text-gray-500/75" to="/contact">Contact</NavLink>
                                     </li>
