@@ -12,6 +12,7 @@ export default function Contact() {
                 </div>
                 <button className="btn btn-info">Submit</button>
             </form>
+            {for_test}
         </div>
     )
 }

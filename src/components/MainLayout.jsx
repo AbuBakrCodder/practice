@@ -3,14 +3,14 @@ import Navbar from "./Navbar"
 
 export default function MainLayout() {
     return (
-        <div>
+        <div className="max-w-[1920px] mx-auto">
             <header className="sticky top-0 z-10 w-full">
                 <Navbar />
             </header>
             <main>
                 <Outlet />
             </main>
-            <footer class="bg-white">
+            <footer class="bg-white  w-full max-w-[1920px]">
                 <div class="mx-auto max-w-screen-xl space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8">
                     <div class="sm:flex sm:items-center sm:justify-between">
                         <div class="text-teal-600">
@@ -154,7 +154,7 @@ export default function MainLayout() {
                         </ul>
                     </div>
 
-                    <p class="text-xs text-gray-500">&copy; 2022. Company Name. All rights reserved.</p>
+                    <p class="text-xs text-gray-500">&copy; {new Date().getFullYear()}. UzumCopy. All rights reserved.</p>
                 </div>
             </footer>
         </div>

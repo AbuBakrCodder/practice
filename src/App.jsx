@@ -5,6 +5,7 @@ import Products from "./pages/Products"
 import Contacts from "./pages/Contact"
 import SingleProducts from "./pages/SingleProducts"
 import User from "./pages/User"
+import ErrorPage from "./pages/ErrorPage"
 
 export default function App() {
 
@@ -12,6 +13,7 @@ export default function App() {
     {
       path: "/",
       element: <MainLayout />,
+      errorElement: <ErrorPage/>,
       children: [
         {
           index: true,

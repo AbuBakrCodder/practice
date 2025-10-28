@@ -4,7 +4,7 @@ import { useState } from "react"
 function User() {
     // api https://jsonplaceholder.typicode.com/users
     const [api, setApi] = useState("https://jsonplaceholder.typicode.com/users")
-    const { data: users, error, loading, formData } = useFetch(api)
+    const { data: users, error, loading, formData, createUser} = useFetch(api)
     const [modal, setModal] = useState(false)
 
     return (
@@ -18,7 +18,8 @@ function User() {
 
             {modal && <form onSubmit={(e) => {
                 e.preventDefault()
-                formData(e.target)
+                let newUser = formData(e.target)
+                createUser(newUser)
                 setModal(false)
             }} className="w-full h-full absolute top-0 bottom-0 z-15 bg-[#00000094] flex items-center justify-center gap-3 flex-col">
                 <div className="flex items-center justify-center gap-3 flex-col bg-white w-[50%] h-[40%] rounded-4xl text-black">
