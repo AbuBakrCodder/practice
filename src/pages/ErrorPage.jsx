@@ -1,5 +1,6 @@
 import { use } from "react"
 import { NavLink, useRouteError } from "react-router-dom"
+import Video from "../../video/orqadan.mp4"
 
 function ErrorPage() {
     let { statusText, status, message } = useRouteError()
@@ -18,7 +19,7 @@ function ErrorPage() {
             <h1 className="text-4xl font-black">Orqadan nimadur kelvotti</h1>
             <p className="text-2xl">{message}</p>
             <p className="text-4xl font-black">Please watch video</p>
-            <video src="./video/orqadan.mp4" controls className="w-80"></video>
+            <video src={Video} controls className="w-80"></video>
             <NavLink to="/" className="btn text-2xl">Back to home</NavLink>
         </div>
     )
