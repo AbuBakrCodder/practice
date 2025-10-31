@@ -17,7 +17,10 @@ export default function Products() {
     return (
         <>
             {error && <h1>Error: {error}</h1>}
-            {loading && <h1 className="text-4xl text-center font-bold my-5">Loading <span className="loading loading-dots loading-xl"></span></h1>}
+            {loading && <div className="flex items-center justify-center h-[100vh]">
+                <div className="absolute w-full h-[100vh] z-50"></div>
+                <h1 className="text-4xl text-center font-bold my-5 text-white absolute z-60">Loading <span className="loading loading-dots loading-xl"></span></h1>
+            </div>}
             <div className="flex flex-wrap items-center justify-center gap-5 my-5">
                 {products && products.products.map((p) => {
                     return (

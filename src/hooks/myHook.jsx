@@ -1,66 +1,69 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 
 export default function useFetch(api) {
-    let [data, setData] = useState(null)
-    let [error, setError] = useState(null)
-    let [loading, setLoading] = useState(false)
-    // get data
-    const getData = async () => {
-        try {
-            setLoading(true)
-            const res = await fetch(api)
-            if (!res.ok) {
-                throw new Error(res.statusText + "" + res.status)
-            }
-            const data = await res.json()
-            console.log(data);
-            setData(data)
-            setLoading(false)
-        } catch (err) {
-            setError(err.message)
-        } finally {
-            setLoading(false)
-        }
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  // get data
+  const getData = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(api);
+      if (!res.ok) throw new Error(`${res.statusText} ${res.status}`);
+      const json = await res.json();
+      setData(json);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-    useEffect(() => {
-        getData()
-    }, [api])
+  };
 
-    // create new user
+  useEffect(() => {
+    getData();
+  }, [api]);
 
-    const createUser = async (newUser)=>{
-        try {
-            setLoading(true)
-            const res = fetch(api, {
-                "method": "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(newUser),
-            })
-
-            if(!res.ok){
-                throw new Error(`${res.statusText} ${res.status}`)
-            }
-            const data = await res.json()
-            setData((prev)=>{prev ? [...prev, data]: [data]})
-            setLoading(false)
-        } catch (err) {
-            setError(err.message)
-            setLoading(false)
-        }finally{
-            setLoading(false)
-        }
+  // create new user
+  const createUser = async (newUser) => {
+    try {
+      setLoading(true);
+      const res = await fetch(api, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newUser),
+      });
+      if (!res.ok) throw new Error(`${res.statusText} ${res.status}`);
+      const json = await res.json();
+      setData((prev) => (prev ? [...prev, json] : [json]));
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    const formData = (form) => {
-        const formData = new FormData(form)
-        const newUsr = {};
-        for (let [key, value] of formData.entries()) newUsr[key] = value;
-        setData((prev) => (prev ? [...prev, newUsr] : [newUsr]))
-
+  // delete user
+  const deleteUser = async (id) => {
+    try {
+      setLoading(true);
+      const res = await fetch(`${api}/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error(`${res.statusText} ${res.status}`);
+      setData((prev) => prev.filter((user) => user.id !== id));
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-    return { data, error, loading, formData, createUser}
+  };
+
+  // form data
+  const formData = (form) => {
+    const fd = new FormData(form);
+    const newUsr = {};
+    for (let [key, value] of fd.entries()) newUsr[key] = value;
+    return newUsr;
+  };
+
+  return { data, error, loading, formData, createUser, deleteUser };
 }
-
-// export { useFetch }
