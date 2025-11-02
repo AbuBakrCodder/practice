@@ -57,6 +57,32 @@ export default function useFetch(api) {
     }
   };
 
+  // editUser
+  const editUser = async (id, editData) => {
+    try {
+      setLoading(true);
+      const res = await fetch(`${api}/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editData),
+      });
+
+      if (!res.ok) throw new Error(`${res.statusText} ${res.status}`);
+      const json = await res.json();
+
+      setData((prev) =>
+        prev.map((user) => (user.id === id ? { ...user, ...json } : user))
+      );
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   // form data
   const formData = (form) => {
     const fd = new FormData(form);
@@ -65,5 +91,5 @@ export default function useFetch(api) {
     return newUsr;
   };
 
-  return { data, error, loading, formData, createUser, deleteUser };
+  return { data, error, loading, formData, createUser, deleteUser, editUser };
 }
