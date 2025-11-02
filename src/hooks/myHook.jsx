@@ -11,8 +11,8 @@ export default function useFetch(api) {
       setLoading(true);
       const res = await fetch(api);
       if (!res.ok) throw new Error(`${res.statusText} ${res.status}`);
-      const json = await res.json();
-      setData(json);
+      const data = await res.json();
+      setData(data);
     } catch (err) {
       setError(err.message);
     } finally {
